@@ -1,35 +1,21 @@
-# Scandipwa_SalesGraphQl
+# ScandiPWA SalesGraphQl
 
-Magneto 2 Sales related functionality extension
+Fork of [scandipwa/sales-graphql](https://github.com/scandipwa/sales-graphql) 1.3.2, maintained by Selveq for Magento 2.4.9 and PHP 8.3. Module name and namespace are unchanged, and the package replaces `scandipwa/sales-graphql` at every version, so it installs as a drop-in replacement. Selveq is not affiliated with or endorsed by Scandiweb.
 
-## What`s inside?
+## What it does
 
-This module provides GraphQl customization to exist one endpoints.
+- Fills out the order history the theme reads through `customer{orders}` with `rss_link`, `can_reorder`, `country_id`, `purchase_number` and bundle and downloadable rows among an item's options, and leaves out orders whose status is hidden from the storefront.
+- Answers the whole order behind a child document's id through `orderByInvoice`, `orderByShipment` and `orderByRefund`, and only to the customer who owns that order.
+- Resolves an order's invoices, shipments and credit memos with their items and their comments.
+- Reorders under the same lock Magento's own reorder takes, so one order cannot be reordered twice at once.
 
-### Customization endpoints 
+## Install
 
-* Allows filtering orders by entity_id
-```graphql
-input CustomerOrdersFilterInput {
-    entity_id: FilterStringTypeInput @doc(description: "Filters by order entity id.")
-}
-```
-* Returns boolean to define if order can be reordered and rss_link exist for it
-
-```graphql
-type CustomerOrder {
-    can_reorder: Boolean! @doc(description: "Defines if order can be reordered")
-    rss_link: String @doc(description: "Represents rss link to subscribe on order status")
-}
+```sh
+composer require selveq/sales-graphql
+bin/magento setup:upgrade
 ```
 
-* Return row subtotal price 
+## License
 
-```graphql
-interface OrderItemInterface {
-   row_subtotal: Money! @doc(description: "The row subtotal price, including selected options")
-}
-```
-
-* Extend order products selected and entered options to return
-  also downloadable links, bundle options and files
+[OSL-3.0](LICENSE), the license of the original work. Scandiweb's copyright notices are kept in every file, and each file Selveq changed carries a `Modifications © Selveq` notice.

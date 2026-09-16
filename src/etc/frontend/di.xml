@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * @category    ScandiPWA
+ * @package     ScandiPWA_SalesGraphQl
+ * @copyright   Copyright © Scandiweb, Inc. All rights reserved.
+ * @copyright   Modifications © Selveq. All rights reserved.
+ * @license     OSL-3.0 (Open Software License ("OSL") v. 3.0)
+ * See LICENSE for license details.
+ *
+ * The ignoredURLs entries must also live in frontend scope. Magento merges an area's DI config over
+ * the global one with array_replace() at *argument* granularity
+ * (Framework/ObjectManager/Config/Config.php: _mergeConfiguration()), so any module declaring
+ * ignoredURLs in etc/frontend/di.xml discards the whole global-scope array — including these two
+ * bypasses. Without them the SPA router answers both routes with the app shell: the order-status
+ * RSS feed that this module's own Formatter\Order::getRssLink() emits a link to, and the
+ * customizable-option file download that serves customer-uploaded order files.
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="ScandiPWA\Router\Controller\ConfigurableRouter"
+        type="ScandiPWA\Router\Controller\Router">
+        <arguments>
+            <argument name="ignoredURLs" xsi:type="array">
+                <item name="orderSubscriptionToStatus" xsi:type="string">^/rss/feed/index/type/order_status/.*</item>
+                <item name="downloadCustomOption" xsi:type="string">^/sales/download/downloadCustomOption/id/.*</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

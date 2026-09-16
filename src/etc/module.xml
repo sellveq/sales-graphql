@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * @category    ScandiPWA
+ * @package     ScandiPWA_SalesGraphQl
+ * @copyright   Copyright © Scandiweb, Inc. All rights reserved.
+ * @copyright   Modifications © Selveq. All rights reserved.
+ * @license     OSL-3.0 (Open Software License ("OSL") v. 3.0)
+ * See LICENSE for license details.
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="ScandiPWA_SalesGraphQl">
+        <sequence>
+            <module name="Magento_SalesGraphQl" />
+            <module name="Magento_Sales" />
+            <module name="Magento_Catalog" />
+            <module name="Magento_Store" />
+            <module name="Magento_Tax" />
+            <module name="Magento_Downloadable" />
+            <module name="Magento_GraphQl" />
+            <module name="ScandiPWA_Route717" />
+        </sequence>
+    </module>
+</config>
